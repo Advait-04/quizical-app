@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/Advait-04/quizical-app/static/css/main.9e720de5.css",
-    "main.js": "/Advait-04/quizical-app/static/js/main.bc99080e.js",
-    "index.html": "/Advait-04/quizical-app/index.html",
-    "main.9e720de5.css.map": "/Advait-04/quizical-app/static/css/main.9e720de5.css.map",
-    "main.bc99080e.js.map": "/Advait-04/quizical-app/static/js/main.bc99080e.js.map"
+    "main.css": "/quizical-app/static/css/main.9e720de5.css",
+    "main.js": "/quizical-app/static/js/main.bc99080e.js",
+    "index.html": "/quizical-app/index.html",
+    "main.9e720de5.css.map": "/quizical-app/static/css/main.9e720de5.css.map",
+    "main.bc99080e.js.map": "/quizical-app/static/js/main.bc99080e.js.map"
   },
   "entrypoints": [
     "static/css/main.9e720de5.css",
