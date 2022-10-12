@@ -43,7 +43,14 @@ function App() {
                 <img src={require("./imgs/blob-2.png")} alt="blob" />
             </div>
             {!isStart && <Intro startGame={startGame} />}
-            {isStart && <div className="main-content">{quizElements}</div>}
+            {isStart && (
+                <div className="main-content">
+                    <div className="quiz-section">{quizElements}</div>
+                    <div className="submit-button-div">
+                        <button className="submit-button">Check answers</button>
+                    </div>
+                </div>
+            )}
         </main>
     );
 }

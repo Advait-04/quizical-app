@@ -21,12 +21,10 @@ export default function Quiz(props) {
     });
 
     return (
-        <section className="quiz-section">
-            <div className="quiz-set">
-                <p className="quiz-question">{props.question}</p>
-                {optionElements}
-                <hr />
-            </div>
-        </section>
+        <div>
+            <p className="quiz-question">{props.question}</p>
+            <div className="quiz-options">{optionElements}</div>
+            <hr />
+        </div>
     );
 }
