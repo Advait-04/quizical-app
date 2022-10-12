@@ -1,0 +1,28 @@
+hr {
+    color: #dbdef0;
+    background-color: #dbdef0;
+    border: 0.794239px solid #dbdef0;
+    height: 3px;
+    width: 100px;
+}
+
+.quiz-section {
+    width: 90%;
+}
+
+.quiz-question {
+    font-family: "Karla";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+    color: #293264;
+
+    margin-bottom: 1%;
+}
+
+.quiz-set {
+    margin-bottom: 3%;
+}
