@@ -1,21 +1,79 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./../styles/quiz.css";
 import { decode } from "html-entities";
 
 export default function Quiz(props) {
-    function shuffleArray(array) {
-        return array.sort(() => Math.random() - 0.5);
+    const [validationObject, setValidationObject] = useState([]);
+    const [isHeld, setIsHeld] = useState(false);
+
+    useEffect(() => {
+        setValidationObject(() => {
+            return props.options.map((option, id) => {
+                return {
+                    name: option,
+                    id: id,
+                    isHeld: isHeld,
+                };
+            });
+        });
+    }, []);
+
+    function handleClick(id) {
+        setValidationObject((validationObject) => {
+            return validationObject.map((option) => {
+                if (option.id === id) {
+                    return {
+                        ...option,
+                        isHeld: !isHeld,
+                    };
+                } else {
+                    return {
+                        ...option,
+                    };
+                }
+            });
+        });
     }
+    const optionElements = validationObject.map((option, idx) => {
+        let style;
 
-    const options = shuffleArray([
-        ...props.incorrect_answers,
-        props.correct_answer,
-    ]);
+        if (props.isSubmit) {
+            if (props.answer === option.name) {
+                style = {
+                    backgroundColor: "#94d7a2",
+                    border: "1px solid #f5f7fb",
+                    color: "#293264",
+                };
+            } else {
+                if (option.isHeld) {
+                    style = {
+                        backgroundColor: "#f8bcbc",
+                        border: "1px solid #f5f7fb",
+                        color: "#293264",
+                    };
+                } else {
+                    style = {
+                        backgroundColor: "#f5f7fb",
+                        border: "1px solid #d6dbf5",
+                        color: "#d6dbf5",
+                    };
+                }
+            }
+        } else {
+            style = {
+                backgroundColor: option.isHeld ? "#d6dbf5" : "#f5f7fb",
+            };
+        }
 
-    const optionElements = options.map((option, idx) => {
         return (
-            <button className="option-button" id={`btn-${idx}`}>
-                {decode(option)}
+            <button
+                key={idx}
+                className="option-button"
+                id={`btn-${option.id}-${idx}`}
+                onClick={() => handleClick(option.id)}
+                style={style}
+            >
+                {decode(option.name)}
             </button>
         );
     });
