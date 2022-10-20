@@ -10,6 +10,7 @@ function App() {
     const [isStart, setIsStart] = useState(false);
     const [quizObjects, setQuizObjects] = useState([]);
     const [submit, setSubmit] = useState(false);
+    const [count, setCount] = useState(0);
 
     useEffect(() => {
         fetch(
@@ -33,14 +34,22 @@ function App() {
                     })
                 )
             );
-    }, []);
+    }, [isStart]);
+
+    console.log(quizObjects);
 
     function startGame() {
-        setIsStart(!isStart);
+        setIsStart(true);
+        setSubmit(false);
+        setCount(0);
     }
 
     function handleSubmit() {
-        setSubmit(!submit);
+        setSubmit(true);
+    }
+
+    function handlePlayAgain() {
+        startGame();
     }
 
     function shuffleArray(array) {
@@ -56,9 +65,37 @@ function App() {
                 answer={itm.correct_answer}
                 options={itm.options}
                 isSubmit={submit}
+                setCount={setCount}
+                count={count}
             />
         );
     });
+
+    const beforeSubmit = (
+        <React.Fragment>
+            <button className="submit-button" onClick={handleSubmit}>
+                Check answers
+            </button>
+        </React.Fragment>
+    );
+
+    const afterSubmit = (
+        <React.Fragment>
+            <div className="play-again-section">
+                <p className="game-score">
+                    {`You scored ${count} / ${quizObjects.length} correct answers`}
+                </p>
+                <div className="play-again-button-div">
+                    <button
+                        className="play-again-button"
+                        onClick={handlePlayAgain}
+                    >
+                        Play Again
+                    </button>
+                </div>
+            </div>
+        </React.Fragment>
+    );
 
     return (
         <main>
@@ -73,12 +110,7 @@ function App() {
                 <div className="main-content">
                     <div className="quiz-section">{quizElements}</div>
                     <div className="submit-button-div">
-                        <button
-                            className="submit-button"
-                            onClick={handleSubmit}
-                        >
-                            Check answers
-                        </button>
+                        {submit ? afterSubmit : beforeSubmit}
                     </div>
                 </div>
             )}

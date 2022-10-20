@@ -5,6 +5,7 @@ import { decode } from "html-entities";
 export default function Quiz(props) {
     const [validationObject, setValidationObject] = useState([]);
     const [isHeld, setIsHeld] = useState(false);
+    const [selectedCorrect, setSelectedCorrect] = useState([]);
 
     useEffect(() => {
         setValidationObject(() => {
@@ -18,13 +19,29 @@ export default function Quiz(props) {
         });
     }, []);
 
+    useEffect(() => {
+        for (let i = 0; i < validationObject.length; i++) {
+            if (
+                validationObject[i].name === props.answer &&
+                validationObject[i].isHeld &&
+                !selectedCorrect.includes(validationObject[i].name)
+            ) {
+                props.setCount(props.count + 1);
+                setSelectedCorrect([
+                    ...selectedCorrect,
+                    validationObject[i].name,
+                ]);
+            }
+        }
+    });
+
     function handleClick(id) {
         setValidationObject((validationObject) => {
             return validationObject.map((option) => {
                 if (option.id === id) {
                     return {
                         ...option,
-                        isHeld: !isHeld,
+                        isHeld: !option.isHeld,
                     };
                 } else {
                     return {
@@ -34,6 +51,7 @@ export default function Quiz(props) {
             });
         });
     }
+
     const optionElements = validationObject.map((option, idx) => {
         let style;
 
